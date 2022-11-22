@@ -1,0 +1,47 @@
+.input, .update {
+    padding: 10px 3px;
+    width: 100%;
+    background-color: rgb(231, 230, 230);
+    color: rgb(85, 85, 85);
+    border-radius: 6px;
+}
+
+.input__title, .update__title {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.input__description .update__description{
+    font-size: 16px;
+}
+
+.input__date {
+    font-size: 16px;
+}
+
+.form--disactive, .form__update--disactive {
+    display: none;
+}
+
+.btn__cancel {
+    background-color: rgb(214, 211, 0);
+    color: #333;
+}
+
+.download {
+    color: #00ff89;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px 5px 0 auto;
+}
+
+.upper-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end
+}

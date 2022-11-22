@@ -1,0 +1,43 @@
+.todo__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+ 
+.todo {
+    width: 70%;
+    margin: 20px auto;
+    min-width: 380px;   
+}
+ 
+.header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+ 
+
+ 
+.btn__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+ 
+.btn {
+    padding: 10px 20px;
+    background: #00ff89;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+ 
+.todo-content {
+    margin-top: 2rem;
+}
+
+.btn:hover {
+    color: #999
+}

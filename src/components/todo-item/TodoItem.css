@@ -1,0 +1,127 @@
+.todo__item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.todo__item--done .item__number,
+.todo__item--done .item__text,
+.todo__item--done .item__description
+{
+    opacity: .3;
+    text-decoration: line-through;
+}
+
+.item__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 140px 10px 20px;
+    margin-bottom: 8px;
+    font-size: 22px;
+    border: 1px solid #555;
+    border-radius: 6px;
+
+}
+
+.item__title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.item__description {
+    font-size: 16px;
+}
+
+.item__buttons {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    color: #00ff89;
+    cursor: pointer;
+}
+
+.item__button:hover {
+    color: yellow;
+}
+
+
+
+.item__number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    border: 1px solid #999;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    margin-right: 8px;
+}
+
+.item__button--exclamation {
+    color: red;
+}
+
+.item__button--exclamation:hover {
+    color: red;
+    cursor: auto;
+}
+
+.item__button--disactive {
+    display: none;
+}
+
+.item__todoDate {
+    color:#999;
+}
+
+.item__button--done {
+    color: white;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip-text {
+    position: absolute;
+    width: fit-content;
+    top: -32px;
+    left: -40px;
+    visibility: hidden;
+    background-color: transparent;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+}
+
+.item__button:hover .tooltip-text {
+    visibility: visible;
+}
+
+.item__button--download {
+    position: relative;
+    right: -127px;
+}
+
+.item__bottom-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+    color: #00ff89;
+    cursor: pointer;
+}
+
+.item__button--download .tooltip-text {
+    left: -100px;
+}
