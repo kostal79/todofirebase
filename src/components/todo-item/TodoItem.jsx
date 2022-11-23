@@ -9,6 +9,7 @@ import {
   faTrashCan,
   faCircleExclamation,
   faFileArrowDown,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 
 const TodoItem = (props) => {
@@ -100,6 +101,7 @@ const TodoItem = (props) => {
             onClick={props.handleDownload}
           >
             <div className="tooltip">
+              <div className={`spinner spinner--disactive`}><FontAwesomeIcon icon={faSpinner} /></div>
               <FontAwesomeIcon icon={faFileArrowDown} />
               <span className="tooltip-text">download</span>
             </div>

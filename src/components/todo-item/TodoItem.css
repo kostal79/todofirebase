@@ -6,8 +6,7 @@
 
 .todo__item--done .item__number,
 .todo__item--done .item__text,
-.todo__item--done .item__description
-{
+.todo__item--done .item__description {
     opacity: .3;
     text-decoration: line-through;
 }
@@ -79,7 +78,7 @@
 }
 
 .item__todoDate {
-    color:#999;
+    color: #999;
 }
 
 .item__button--done {
@@ -124,4 +123,22 @@
 
 .item__button--download .tooltip-text {
     left: -100px;
+}
+
+.spinner {
+    animation: spin 1s linear infinite
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner--disactive {
+    display: none;
 }

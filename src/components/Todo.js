@@ -8,7 +8,7 @@ import Form from "./form/Form";
 import DateForm from "../utils/DateForm";
 import TodoContent from "./form/todo-content/TodoContent";
 import TodoItem from "./todo-item/TodoItem";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, getBlob } from "firebase/storage";
 
 
 /** Component of Todo module */
@@ -97,14 +97,14 @@ const Todo = () => {
         }).then(() => fetchPost());
     }
 
-    const addData = async (title, description, todoDate, isDone, file) => {
+    const addData = async (title, description, todoDate, isDone, fileURL, fileName) => {
         try {
             const docRef = await addDoc(collection(db, "todos"), {
                 title: title,
                 description: description,
                 todoDate: todoDate,
                 isDone: isDone,
-                file: file,
+                file: { fileURL: fileURL, fileName: fileName },
             });
             console.log("Document written with ID: ", docRef.id);
         } catch (err) {
@@ -123,16 +123,17 @@ const Todo = () => {
         e.preventDefault();
         if (title && todoDate) {
             if (selectedFile.current.files.length > 0) {
-                const storageRef = ref(storage, selectedFile.current.files[0].name);
+                const fileName = selectedFile.current.files[0].name;
+                console.log(fileName)
+                const storageRef = ref(storage, fileName );
 
                 uploadBytes(storageRef, selectedFile.current.files[0]).then((snapshot) => {
                     getDownloadURL(snapshot.ref)
-                        .then((downloadURL) => addData(title, description, todoDate, false, downloadURL));
+                        .then((fileURL) => addData(title, description, todoDate, false, fileURL, fileName));
                 });
 
-            }
-            addData(title, description, todoDate, false, null)
-
+            } else {addData(title, description, todoDate, false, null, null)}
+            
         } else {
             console.log('one or more fields are empty')
         }
@@ -220,16 +221,15 @@ const Todo = () => {
      */
     const handleDownload = async (e) => {
         const id = e.target.closest('.todo__item').id;
-        const fileName = await getDocument(id).then((data) => data.file)
-        const starsRef = ref(storage, fileName);
-        getDownloadURL(starsRef)
-            .then((url) => {
+        const data = await getDocument(id);
+        const fileName = await data.file.fileName;
+        const fileURL = await data.file.fileURL;
+        await getBlob(ref(storage, fileURL))
+            .then((blob) => {
                 const link = document.createElement('a');
-                link.href = url;
-                link.target = "_blank";
-                document.body.appendChild(link);
+                link.href = window.URL.createObjectURL(blob);
+                link.download = fileName;
                 link.click();
-                document.body.removeChild(link);
             })
             .catch(err => console.error(err))
     }
@@ -259,7 +259,8 @@ const Todo = () => {
             )
         });
         return list
-    }, [todos])
+    }, // eslint-disable-next-line
+        [todos])
 
 
     /**
