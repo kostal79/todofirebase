@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./TodoItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ref, getBlob } from "firebase/storage";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import db, { storage } from "../../firebase";
 import {
   faCircleCheck,
@@ -75,7 +75,16 @@ const TodoItem = (props) => {
    */
   const deleteTodo = async (e) => {
     let documentId = todo.id;
-    await deleteDoc(doc(db, "todos", documentId)).then(() => props.fetchPost());
+    let fileURL = todo.data.file?.fileURL;
+
+    if (fileURL) {
+      props
+        .deleteFile(fileURL)
+        .then(() => props.deleteTodoDoc(documentId))
+        .then(() => props.fetchPost());
+    } else {
+      props.deleteTodoDoc(documentId).then(() => props.fetchPost());
+    }
   };
 
   return (

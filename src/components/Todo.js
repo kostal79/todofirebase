@@ -2,13 +2,13 @@
 
 import "./Todo.css";
 import React, { useState, useEffect, useMemo } from 'react';
-import { collection, addDoc, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import db, { storage } from "../firebase";
 import Form from "./form/Form";
 import DateForm from "../utils/DateForm";
 import TodoContent from "./form/todo-content/TodoContent";
 import TodoItem from "./todo-item/TodoItem";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject, } from "firebase/storage";
 
 
 /** Component of Todo module */
@@ -22,7 +22,19 @@ const Todo = () => {
     const [update, setUpdate] = useState('');
     const selectedFile = React.createRef();
 
+    /**
+     * Render after submit
+     */
+    useEffect(() => {
+        fetchPost();
+    }, [])
 
+
+
+
+    /**
+     * Sets default values in sets
+     */
     const setDefaultValues = () => {
         setTitle('')
         setDescription('')
@@ -75,7 +87,15 @@ const Todo = () => {
     }
 
 
-
+    /**
+     * 
+     * @param {string} title - title of todo
+     * @param {string} description - description of todo
+     * @param {string} todoDate - date, when todo must be finished
+     * @param {boolean} isDone - if todo is finished, isDone === true
+     * @param {string} fileURL - URL of attached file
+     * @param {string} fileName - name of attached file
+     */
     const addData = async (title, description, todoDate, isDone, fileURL, fileName) => {
         try {
             const docRef = await addDoc(collection(db, "todos"), {
@@ -102,8 +122,7 @@ const Todo = () => {
         e.preventDefault();
         if (title && todoDate) {
             if (selectedFile.current.files.length > 0) {
-                const fileName = selectedFile.current.files[0].name;
-                console.log(fileName)
+                const fileName = Date.now() + selectedFile.current.files[0].name;
                 const storageRef = ref(storage, fileName);
 
                 uploadBytes(storageRef, selectedFile.current.files[0]).then((snapshot) => {
@@ -148,7 +167,6 @@ const Todo = () => {
      */
     const handleUpdateTitle = (e) => {
         setUpdate({ ...update, data: { ...update.data, title: e.target.value } })
-        console.log(update)
     }
 
     /**
@@ -174,11 +192,25 @@ const Todo = () => {
         setUpdate('')
     }
 
+    const deleteFile = async (fileURL) => {
+        const desertRef = ref(storage, fileURL)
+        deleteObject(desertRef)
+        .then(() => console.log('attached file was deleted'))
+        .catch((err) => console.error('an error occurred, attanched file was not deleted'));
+    }
+
+    const deleteTodoDoc = async (documentId) => {
+        deleteDoc(doc(db, 'todos', documentId))
+        .then(() => console.log('document was deleted'))
+        .catch((err) => console.error('error occured, document was not deleted'))
+    }
+
+
     /**
-     * Make list of all todo
-     * @param {array} todos - array of objects
-     * @returns array of components
-     */
+* Make list of all todo
+* @param {array} todos - array of objects
+* @returns array of components
+*/
     const todoList = useMemo(() => {
         let list = todos?.map((todo, i) => {
             console.log('rendering todo item')
@@ -192,6 +224,8 @@ const Todo = () => {
                         getDocument={getDocument}
                         setUpdate={setUpdate}
                         fetchPost={fetchPost}
+                        deleteFile={deleteFile}
+                        deleteTodoDoc={deleteTodoDoc}
                     />
                 </div>
             )
@@ -223,14 +257,6 @@ const Todo = () => {
         setTodos(sortedData)
         console.log("array is updated")
     }
-
-
-    /**
-     * Render after submit
-     */
-    useEffect(() => {
-        fetchPost();
-    }, [])
 
 
     return (
