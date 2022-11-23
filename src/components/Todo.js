@@ -22,12 +22,7 @@ const Todo = () => {
     const [selectedFile, setSelectedFile] = useState('');
     const [isFilePicked, setIsFilePicked] = useState(false);
 
-    /**
-     * Render after submit
-     */
-    useEffect(() => {
-        fetchPost();
-    }, [])
+
 
 
 
@@ -61,9 +56,9 @@ const Todo = () => {
 
 
     /**
- * State of todoDate handler
- * @param {object} e - input date
- */
+     * State of todoDate handler
+     * @param {object} e - input date
+     */
     const handleDate = (e) => {
         setTodoDate(e.target.value)
     }
@@ -232,7 +227,7 @@ const Todo = () => {
         setIsFilePicked(false);
     }
 
-        /**
+    /**
     * Make list of all todo
     * @param {array} todos - array of objects
     * @returns array of components
@@ -282,6 +277,13 @@ const Todo = () => {
         setTodos(sortedData)
         console.log("array is updated")
     }
+
+    /**
+    * Feth new data after changings
+    */
+    useEffect(() => {
+        fetchPost();
+    }, [])
 
     return (
         <div className="todo__container">
