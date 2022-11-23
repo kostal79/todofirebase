@@ -2,13 +2,13 @@
 
 import "./Todo.css";
 import React, { useState, useEffect, useMemo } from 'react';
-import { collection, addDoc, getDocs, getDoc, deleteDoc, doc, updateDoc, setDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
 import db, { storage } from "../firebase";
 import Form from "./form/Form";
 import DateForm from "../utils/DateForm";
 import TodoContent from "./form/todo-content/TodoContent";
 import TodoItem from "./todo-item/TodoItem";
-import { ref, uploadBytes, getDownloadURL, getBlob } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 /** Component of Todo module */
@@ -57,15 +57,6 @@ const Todo = () => {
     }
 
     /**
-     * Deletes tasc
-     * @param {event} e - target tasc
-     */
-    const deleteTodo = async (e) => {
-        let documentId = e.target.closest('.todo__item').id;
-        await deleteDoc(doc(db, "todos", documentId)).then(() => fetchPost());
-    }
-
-    /**
      * Gets document by ID
      * @param {string} documentID 
      * @returns {object} data
@@ -83,19 +74,7 @@ const Todo = () => {
         }
     }
 
-    /**
-     * Marks if is done
-     * @param {event} e - target tasc
-     */
-    const markTodo = async (e) => {
-        const documentId = e.target.closest('.todo__item').id;
-        const document = doc(db, 'todos', documentId);
-        const isDone = await getDocument(document.id).then((data) => data.isDone)
-        console.log(isDone)
-        await updateDoc(document, {
-            isDone: !isDone
-        }).then(() => fetchPost());
-    }
+
 
     const addData = async (title, description, todoDate, isDone, fileURL, fileName) => {
         try {
@@ -125,48 +104,29 @@ const Todo = () => {
             if (selectedFile.current.files.length > 0) {
                 const fileName = selectedFile.current.files[0].name;
                 console.log(fileName)
-                const storageRef = ref(storage, fileName );
+                const storageRef = ref(storage, fileName);
 
                 uploadBytes(storageRef, selectedFile.current.files[0]).then((snapshot) => {
                     getDownloadURL(snapshot.ref)
                         .then((fileURL) => addData(title, description, todoDate, false, fileURL, fileName));
                 });
 
-            } else {addData(title, description, todoDate, false, null, null)}
-            
+            } else { addData(title, description, todoDate, false, null, null) }
+
         } else {
             console.log('one or more fields are empty')
         }
     }
 
-    /** fills updating fields 
-    * @param {event} e press icon "change"
-    */
-    const changeTodo = async (e) => {
-        window.scrollTo(0, 0);
-        const documentId = e.target.closest('.todo__item').id;
-        const document = doc(db, 'todos', documentId);
-        await getDocument(document.id)
-            .then((content) => setUpdate({ data: { ...content }, id: documentId }))
-    }
-
-    /**
-     * return updating document
-     * @returns {object} new document
-     */
-    const getUpdatingDocument = () => {
-        const updatingDocument = update ? update.data : null;
-        return updatingDocument;
-    }
-
 
     /**
     * Submits update task
+    * @param {event} e - press button "Submit"
     */
     const submitUpdate = async (e) => {
         e.preventDefault();
-        const documentId = update.id;
-        const newData = getUpdatingDocument();
+        const documentId = update.id && update.id;
+        const newData = update.data && update.data;
         if (newData && newData.title && newData.todoDate) {
             try {
                 await setDoc(doc(db, "todos", documentId), newData)
@@ -214,51 +174,35 @@ const Todo = () => {
         setUpdate('')
     }
 
-
-    /**
-     * Downloads file and opens if .pdf
-     * @param {event} e click on download button
-     */
-    const handleDownload = async (e) => {
-        const id = e.target.closest('.todo__item').id;
-        const data = await getDocument(id);
-        const fileName = await data.file.fileName;
-        const fileURL = await data.file.fileURL;
-        await getBlob(ref(storage, fileURL))
-            .then((blob) => {
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = fileName;
-                link.click();
-            })
-            .catch(err => console.error(err))
-    }
-
-
     /**
      * Make list of all todo
      * @param {array} todos - array of objects
      * @returns array of components
      */
     const todoList = useMemo(() => {
-        console.log('todoList start')
         let list = todos?.map((todo, i) => {
+            console.log('rendering todo item')
             return (
                 <div key={todo.id}>
                     <TodoItem
                         todo={todo}
                         i={i}
-                        deleteTodo={deleteTodo}
-                        markTodo={markTodo}
-                        changeTodo={changeTodo}
                         cancelUpdate={cancelUpdate}
                         currentDate={currentDate}
-                        handleDownload={handleDownload}
+                        getDocument={getDocument}
+                        setUpdate={setUpdate}
+                        fetchPost={fetchPost}
                     />
                 </div>
             )
         });
-        return list
+        if (list.length > 0) {
+            console.log('rendering finished')
+            return list
+        } else {
+            console.log('todolist is empty')
+            return ('TODO list is empty')
+        }
     }, // eslint-disable-next-line
         [todos])
 
@@ -267,7 +211,7 @@ const Todo = () => {
      * Read collection and make array of objects, sorted by date of todo
      */
     async function fetchPost() {
-        console.log('fetch')
+        console.log('start make new array...')
         const querySnapshot = await getDocs(collection(db, "todos"));
         let newData = []
         querySnapshot.forEach((doc) => {
@@ -277,7 +221,7 @@ const Todo = () => {
         });
         const sortedData = newData.sort((a, b) => Date.parse(a.data.todoDate) - Date.parse(b.data.todoDate))
         setTodos(sortedData)
-        console.log("sortedData: ", sortedData)
+        console.log("array is updated")
     }
 
 
@@ -306,7 +250,6 @@ const Todo = () => {
                         handleDate={handleDate}
                         handleDescription={handleDescription}
                         description={description}
-                        changeTodo={changeTodo}
                         submitUpdate={submitUpdate}
                         handleUpdateTitle={handleUpdateTitle}
                         handleUpdateDescribtion={handleUpdateDescribtion}
@@ -319,7 +262,6 @@ const Todo = () => {
 
                 </div>
                 <TodoContent
-                    todos={todos}
                     todoList={todoList}
                 />
             </div>

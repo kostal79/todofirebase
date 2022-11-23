@@ -142,3 +142,7 @@
 .spinner--disactive {
     display: none;
 }
+
+.icon--disactive {
+    display: none;
+}
