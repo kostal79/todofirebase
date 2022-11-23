@@ -2,6 +2,8 @@
 
 import React from "react";
 import "./Form.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Form = (props) => {
   return (
@@ -40,9 +42,25 @@ const Form = (props) => {
             type="file"
             id="fileElem"
             style={{ display: "none" }}
-            ref={props.selectedFile}
+            onChange={props.loadFileHandler}
           />
-          <label htmlFor="fileElem" className="download">
+          <div
+            className={
+              props.isFilePicked
+                ? "download-file-info"
+                : "download-file-info--disactive"
+            }
+          >
+            <FontAwesomeIcon icon={faPaperclip} />
+            <div>{props.isFilePicked ? props.selectedFile.name : ""}</div>
+            <div className="cancel-icon" onClick={props.clearSelectedFile}>
+              <FontAwesomeIcon
+                icon={faXmark}
+                style={{ color: "red", fontSize: "22px", fontWeight: "600" }}
+              />
+            </div>
+          </div>
+          <label htmlFor="fileElem" className={props.isFilePicked ? 'download--disactive' : 'download'}>
             Загрузить файл
           </label>
         </div>
@@ -87,7 +105,6 @@ const Form = (props) => {
           <button className="btn btn__cancel">Cancel</button>
         </div>
       </form>
-      <img id="download" />
     </>
   );
 };

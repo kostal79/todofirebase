@@ -16,11 +16,11 @@ const Todo = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [todos, setTodos] = useState([]);
-
     const currentDate = DateForm(new Date());
     const [todoDate, setTodoDate] = useState(currentDate);
     const [update, setUpdate] = useState('');
-    const selectedFile = React.createRef();
+    const [selectedFile, setSelectedFile] = useState('');
+    const [isFilePicked, setIsFilePicked] = useState(false);
 
     /**
      * Render after submit
@@ -33,14 +33,14 @@ const Todo = () => {
 
 
     /**
-     * Sets default values in sets
+     * Sets default values
      */
     const setDefaultValues = () => {
         setTitle('')
         setDescription('')
         setTodoDate(currentDate)
         setUpdate('')
-        document.getElementById("fileElem").value = "";
+        clearSelectedFile()
     }
 
     /**
@@ -115,17 +115,18 @@ const Todo = () => {
     }
 
     /**
-     * Sumbit additing new todo
+     * Sumbit additing new todo, adds document and attaches file
      * @param {event} e - press button Submit
      */
     const submitTodo = async (e) => {
         e.preventDefault();
         if (title && todoDate) {
-            if (selectedFile.current.files.length > 0) {
-                const fileName = Date.now() + selectedFile.current.files[0].name;
+            console.log(selectedFile)
+            if (isFilePicked) {
+                const fileName = Date.now() + selectedFile.name;
                 const storageRef = ref(storage, fileName);
 
-                uploadBytes(storageRef, selectedFile.current.files[0]).then((snapshot) => {
+                uploadBytes(storageRef, selectedFile).then((snapshot) => {
                     getDownloadURL(snapshot.ref)
                         .then((fileURL) => addData(title, description, todoDate, false, fileURL, fileName));
                 });
@@ -191,29 +192,54 @@ const Todo = () => {
     const cancelUpdate = (e) => {
         setUpdate('')
     }
-
+    /**
+     * deletes attached file
+     * @param {string} fileURL - URL of deliting file
+     */
     const deleteFile = async (fileURL) => {
         const desertRef = ref(storage, fileURL)
         deleteObject(desertRef)
-        .then(() => console.log('attached file was deleted'))
-        .catch((err) => console.error('an error occurred, attanched file was not deleted'));
+            .then(() => console.log('attached file was deleted'))
+            .catch((err) => console.error('an error occurred, attanched file was not deleted'));
     }
-
-    const deleteTodoDoc = async (documentId) => {
-        deleteDoc(doc(db, 'todos', documentId))
-        .then(() => console.log('document was deleted'))
-        .catch((err) => console.error('error occured, document was not deleted'))
-    }
-
 
     /**
-* Make list of all todo
-* @param {array} todos - array of objects
-* @returns array of components
-*/
+     * delete todo from firestore
+     * @param {string} documentId - id of document in firestore
+     */
+    const deleteTodoDoc = async (documentId) => {
+        deleteDoc(doc(db, 'todos', documentId))
+            .then(() => console.log('document was deleted'))
+            .catch((err) => console.error('error occured, document was not deleted'))
+    }
+
+    /**
+     * puts file's object to state and 
+     * marks that file was selected
+     * @param {event} e - press "upload file"
+     */
+    const loadFileHandler = (e) => {
+        setSelectedFile(e.target.files[0])
+        setIsFilePicked(true);
+    }
+
+    /**
+     * clears file object and 
+     * marks that file is not selected
+     */
+    const clearSelectedFile = () => {
+        setSelectedFile('')
+        setIsFilePicked(false);
+    }
+
+        /**
+    * Make list of all todo
+    * @param {array} todos - array of objects
+    * @returns array of components
+    */
     const todoList = useMemo(() => {
         let list = todos?.map((todo, i) => {
-            console.log('rendering todo item')
+            console.log('rendering todo item ', i)
             return (
                 <div key={todo.id}>
                     <TodoItem
@@ -240,7 +266,6 @@ const Todo = () => {
     }, // eslint-disable-next-line
         [todos])
 
-
     /**
      * Read collection and make array of objects, sorted by date of todo
      */
@@ -257,7 +282,6 @@ const Todo = () => {
         setTodos(sortedData)
         console.log("array is updated")
     }
-
 
     return (
         <div className="todo__container">
@@ -282,6 +306,9 @@ const Todo = () => {
                         handleUpdateDate={handleUpdateDate}
                         update={update}
                         selectedFile={selectedFile}
+                        loadFileHandler={loadFileHandler}
+                        isFilePicked={isFilePicked}
+                        clearSelectedFile={clearSelectedFile}
                     />
                 </div>
                 <div className="form form__change-data-form">

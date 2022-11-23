@@ -57,7 +57,7 @@ const TodoItem = (props) => {
 
   /**
    * Marks if is done
-   * @param {event} e - target tasc
+   * @param {event} e - press mark in todo
    */
   const markTodo = async (e) => {
     setIsDone(!isDone);
@@ -71,17 +71,16 @@ const TodoItem = (props) => {
 
   /**
    * Deletes tasc
-   * @param {event} e - target tasc
+   * @param {event} e - press delete on todo
    */
   const deleteTodo = async (e) => {
     let documentId = todo.id;
     let fileURL = todo.data.file?.fileURL;
 
     if (fileURL) {
-      props
-        .deleteFile(fileURL)
-        .then(() => props.deleteTodoDoc(documentId))
-        .then(() => props.fetchPost());
+        await props.deleteFile(fileURL)
+        await props.deleteTodoDoc(documentId)
+        props.fetchPost();
     } else {
       props.deleteTodoDoc(documentId).then(() => props.fetchPost());
     }
