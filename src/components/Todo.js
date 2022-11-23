@@ -23,10 +23,6 @@ const Todo = () => {
     const [isFilePicked, setIsFilePicked] = useState(false);
 
 
-
-
-
-
     /**
      * Sets default values
      */
