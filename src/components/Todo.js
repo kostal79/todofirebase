@@ -76,7 +76,6 @@ const Todo = () => {
         }
     }
 
-
     /**
      * 
      * @param {string} title - title of todo
@@ -182,6 +181,7 @@ const Todo = () => {
     const cancelUpdate = (e) => {
         setUpdate('')
     }
+    
     /**
      * deletes attached file
      * @param {string} fileURL - URL of deliting file
