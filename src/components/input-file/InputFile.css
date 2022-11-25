@@ -1,0 +1,23 @@
+.download-file-info {
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    color: #00ff89;
+    font-size: 18px;
+    margin: 5px 5px 0 auto;
+}
+
+.cancel-icon {
+    cursor: pointer;
+}
+
+.download-file-info--disactive, .download--disactive {
+    display: none;
+}
+
+.download {
+    color: #00ff89;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px 5px 0 auto;
+}

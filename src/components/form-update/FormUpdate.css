@@ -1,0 +1,26 @@
+.update {
+    padding: 10px 3px;
+    width: 100%;
+    background-color: rgb(231, 230, 230);
+    color: rgb(85, 85, 85);
+    border-radius: 6px;
+}
+
+.update__title {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.input__description .update__description{
+    font-size: 16px;
+}
+
+.form__update--disactive {
+    display: none;
+}
+
+.btn__cancel {
+    background-color: rgb(214, 211, 0);
+    color: #333;
+}
+

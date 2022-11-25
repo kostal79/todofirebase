@@ -27,6 +27,7 @@ const TodoItem = (props) => {
    */
   const changeTodo = (e) => {
     window.scrollTo(0, 0);
+    props.setUpdatedFileName(todo.data.file.fileName)
     props.setUpdate(todo);
   };
 
@@ -37,7 +38,6 @@ const TodoItem = (props) => {
   const handleDownload = async (e) => {
     setIsLoad(true);
     const id = props.todo.id;
-    console.log(id);
     const data = await props.getDocument(id);
     const fileName = await data.file.fileName;
     const fileURL = await data.file.fileURL;

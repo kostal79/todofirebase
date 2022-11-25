@@ -1,0 +1,10 @@
+.input__title {
+    padding: 10px 3px;
+    width: 50%;
+    font-size: 22px;
+    font-weight: 800;
+    padding: 10px 3px;
+    background-color: rgb(231, 230, 230);
+    color: rgb(85, 85, 85);
+    border-radius: 6px;
+}

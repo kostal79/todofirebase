@@ -1,0 +1,8 @@
+.input__date {
+    padding: 10px 3px;
+    width: 50%;
+    background-color: rgb(231, 230, 230);
+    color: rgb(85, 85, 85);
+    border-radius: 6px;
+    font-size: 16px;
+}
