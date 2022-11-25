@@ -16,3 +16,8 @@ figure,
 figcaption {
     margin: 0;
 }
+
+.App {
+    background-color: #333;
+    color: white;
+}
