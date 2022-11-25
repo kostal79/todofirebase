@@ -1,7 +1,11 @@
 /**@module InputDescribtion */
+
 import React from "react";
 import './InputDescription.css'
 
+/**Component InputDescription
+ * @description render field for input Title
+ */
 const InputDescription = (props) => {
   return (
     <textarea

@@ -4,6 +4,11 @@ import './InputFile.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 
+/**
+ * Component InputFile
+ * @param {*} props 
+ * @description block for input file field
+ */
 const InputFile = (props) => {
   return (
     <>
@@ -30,7 +35,7 @@ const InputFile = (props) => {
         htmlFor={props.name}
         className={props.labelClassName}
       >
-        Загрузить файл
+        Attach file
       </label>
     </>
   );

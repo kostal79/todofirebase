@@ -1,6 +1,13 @@
+/**@Module InputDate */
+
 import React from 'react'
 import './InputDate.css'
 
+/**
+ * Component for input field for date
+ * @param {*} props 
+ * @returns 
+ */
 const InputDate = (props) => {
     return (
         <input

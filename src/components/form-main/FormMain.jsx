@@ -6,6 +6,12 @@ import InputDescription from "../input-desctription/InputDescription";
 import InputDate from "../input-date/InputDate";
 import InputFile from "../input-file/InputFile";
 
+
+/**
+ * Component FormMain
+ * @param {*} props 
+ * @description make upper block for adding todo 
+ */
 const FormMain = (props) => {
   return (
     <form

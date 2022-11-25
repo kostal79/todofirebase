@@ -7,6 +7,11 @@ import InputFile from "../input-file/InputFile";
 import InputTitle from "../input-title/InputTitle";
 import "./FormUpdate.css";
 
+/**
+ * Component FormUpdate
+ * @param {*} props 
+ * @description makes form for updating todo 
+ */
 const FormUpdate = (props) => {
   return (
     <form
@@ -26,7 +31,7 @@ const FormUpdate = (props) => {
       <InputDescription
         name="descriptionUpdate"
         value={props.update ? props.update.data.description : "..."}
-        onChange={props.handleUpdateDescribtion}
+        onChange={props.handleUpdateDescription}
         className="update update__description"
       />
       <InputDate

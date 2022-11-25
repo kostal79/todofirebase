@@ -2,6 +2,11 @@
 import React from 'react'
 import './InputTitle.css'
 
+/**
+ * Component InputTitle
+ * @param {*} props 
+ * @description render field for title 
+ */
 const InputTitle = (props) => {
     return (
         <input

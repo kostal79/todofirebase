@@ -23,7 +23,9 @@ import {
   deleteObject,
 } from "firebase/storage";
 
-/** Component of Todo module */
+/** Component of Todo module 
+ * @description consist general logic of project.
+*/
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -47,7 +49,7 @@ const Todo = () => {
   };
 
   /**
-   * State of title handler
+   * Handler of title state
    * @param {event} e - input area
    */
   const handleTitle = (e) => {
@@ -55,7 +57,7 @@ const Todo = () => {
   };
 
   /**
-   * State of description handler
+   * Handler of updating descriprion state
    * @param {event} e - text area
    */
   const handleDescription = (e) => {
@@ -63,7 +65,7 @@ const Todo = () => {
   };
 
   /**
-   * State of todoDate handler
+   * Handler of updating date state
    * @param {object} e - input date
    */
   const handleDate = (e) => {
@@ -88,7 +90,7 @@ const Todo = () => {
   };
 
   /**
-   *
+   *Add new todo
    * @param {string} title - title of todo
    * @param {string} description - description of todo
    * @param {string} todoDate - date, when todo must be finished
@@ -121,6 +123,11 @@ const Todo = () => {
     }
   };
 
+  /**
+   * Update todo in firestore
+   * @param {string} documentId 
+   * @param {object} newData 
+   */
   const updateData = async (documentId, newData) => {
     setDoc(doc(db, "todos", documentId), newData)
       .then(console.log("Document updated with ID:", documentId))
@@ -224,10 +231,10 @@ const Todo = () => {
   };
 
   /**
-   * update description in document
+   * handler for update description 
    * @param {event} e - description field
    */
-  const handleUpdateDescribtion = (e) => {
+  const handleUpdateDescription = (e) => {
     setUpdate({
       ...update,
       data: { ...update.data, description: e.target.value },
@@ -235,7 +242,7 @@ const Todo = () => {
   };
 
   /**
-   * date updating handler
+   * handler for date updating 
    * @param {event} e input field date
    */
   const handleUpdateDate = (e) => {
@@ -246,12 +253,7 @@ const Todo = () => {
   };
 
   /**
-   * updates file
-   * @param {event} e input file update
-   */
-
-  /**
-   * Cancels update task
+   * Cancels update task and clear fields
    */
   const cancelUpdate = (e) => {
     e.preventDefault();
@@ -274,7 +276,7 @@ const Todo = () => {
   };
 
   /**
-   * delete todo from firestore
+   * Deletes todo from firestore
    * @param {string} documentId - id of document in firestore
    */
   const deleteTodoDoc = async (documentId) => {
@@ -284,7 +286,7 @@ const Todo = () => {
   };
 
   /**
-   * puts file's object to state and
+   * Puts file's object to state and
    * marks that file was selected
    * @param {event} e - press "upload file"
    */
@@ -295,7 +297,7 @@ const Todo = () => {
   };
 
   /**
-   * clears file object and
+   * Clears choosed file object in state and
    * marks that file is not selected
    */
   const clearSelectedFile = () => {
@@ -307,7 +309,7 @@ const Todo = () => {
   /**
    * Make list of all todo
    * @param {array} todos - array of objects
-   * @returns array of components
+   * @returns array of todoItem components
    */
   const todoList = useMemo(
     () => {
@@ -343,7 +345,7 @@ const Todo = () => {
   );
 
   /**
-   * Read collection and make array of objects, sorted by date of todo
+   * Read all todos if firestore and make array of objects, sorted by date of todo
    */
   async function fetchPost() {
     console.log("fetch...");
@@ -380,7 +382,7 @@ const Todo = () => {
             description={description}
             submitUpdate={submitUpdate}
             handleUpdateTitle={handleUpdateTitle}
-            handleUpdateDescribtion={handleUpdateDescribtion}
+            handleUpdateDescription={handleUpdateDescription}
             handleUpdateDate={handleUpdateDate}
             update={update}
             selectedFile={selectedFile}
