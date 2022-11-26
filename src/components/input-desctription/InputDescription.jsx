@@ -1,4 +1,4 @@
-/**@module InputDescribtion */
+/**@module InputDescription */
 
 import React from "react";
 import './InputDescription.css'

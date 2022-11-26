@@ -1,5 +1,3 @@
-/** @module DateForm */
-
 /**
  * Make string from date object
  * @param {date} date - Date object
