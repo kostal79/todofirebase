@@ -1,6 +1,7 @@
 .download-file-info {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     column-gap: 8px;
     color: #00ff89;
     font-size: 18px;

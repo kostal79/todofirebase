@@ -1,8 +1,8 @@
-.input__description {
+.input__description, .update__description {
     padding: 10px 3px;
     width: 100%;
-    height: 60px;
-    font-size: 16px;
+    height: 160px;
+    font-size: 18px;
     background-color: rgb(231, 230, 230);
     color: rgb(85, 85, 85);
     border-radius: 6px;

@@ -59,8 +59,8 @@
     color: #999;
     border: 1px solid #999;
     border-radius: 50%;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     margin-right: 8px;
 }
 
@@ -92,10 +92,10 @@
 .tooltip-text {
     position: absolute;
     width: fit-content;
-    top: -32px;
+    top: -35px;
     left: -40px;
     visibility: hidden;
-    background-color: transparent;
+    background-color: #333;
     color: #fff;
     text-align: center;
     border-radius: 6px;
@@ -104,6 +104,7 @@
 
 .item__button:hover .tooltip-text {
     visibility: visible;
+    opacity: .6;
 }
 
 .item__button--download {
@@ -125,24 +126,17 @@
     left: -100px;
 }
 
-.spinner {
-    animation: spin 1s linear infinite
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.spinner--disactive {
-    display: none;
-}
-
 .icon--disactive {
     display: none;
+}
+
+.item__file-name {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.tooltip-text__fileName {
+    top: 5px;
+    left: -175px;
+    font-size: 12px;
 }

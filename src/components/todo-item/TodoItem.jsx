@@ -12,28 +12,31 @@ import {
   faTrashCan,
   faCircleExclamation,
   faFileArrowDown,
-  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
+import Spinner from "../Spinner/Spinner";
 
 const TodoItem = (props) => {
   const [todo, setTodo] = useState(props.todo);
   const [isLoad, setIsLoad] = useState(false);
   const [isDone, setIsDone] = useState(todo.data.isDone);
 
+  /**
+   * Hook for update todo when props changed
+   */
   useEffect(() => setTodo(props.todo), [props]);
 
   /** fills updating fields
-   * @param {event} e press icon "change"
+   * @param {event} e event press icon "change"
    */
   const changeTodo = (e) => {
     window.scrollTo(0, 0);
-    props.setUpdatedFileName(todo.data.file.fileName)
+    props.setUpdatedFileName(todo.data.file.fileName);
     props.setUpdate(todo);
   };
 
   /**
    * Downloads file and opens if .pdf
-   * @param {event} e click on download button
+   * @param {event} e - event click on download button
    */
   const handleDownload = async (e) => {
     setIsLoad(true);
@@ -57,7 +60,7 @@ const TodoItem = (props) => {
 
   /**
    * Marks if is done
-   * @param {event} e - press mark in todo
+   * @param {event} e - event press mark in todo
    */
   const markTodo = async (e) => {
     setIsDone(!isDone);
@@ -71,19 +74,32 @@ const TodoItem = (props) => {
 
   /**
    * Deletes tasc
-   * @param {event} e - press delete on todo
+   * @param {event} e - event press delete on todo
    */
   const deleteTodo = async (e) => {
     let documentId = todo.id;
     let fileURL = todo.data.file?.fileURL;
 
     if (fileURL) {
-        await props.deleteFile(fileURL)
-        await props.deleteTodoDoc(documentId)
-        props.fetchPost();
+      await props.deleteFile(fileURL);
+      await props.deleteTodoDoc(documentId);
+      props.fetchPost();
     } else {
       props.deleteTodoDoc(documentId).then(() => props.fetchPost());
     }
+  };
+
+  /**
+   * Return name of download file, if length of name > 8 letters, return lette...
+   */
+  const getFileName = () => {
+    let fileName = props.todo.data.file.fileName
+      ? props.todo.data.file.fileName
+      : "";
+    if (fileName.length >= 8) {
+      return fileName.slice(0, 8) + "...";
+    }
+    return fileName;
   };
 
   return (
@@ -172,15 +188,16 @@ const TodoItem = (props) => {
             onClick={handleDownload}
           >
             <div className="tooltip">
-              <div
+              <Spinner
                 className={isLoad ? "spinner" : "spinner spinner--disactive"}
-              >
-                <FontAwesomeIcon icon={faSpinner} />
-              </div>
+              />
               <div className={isLoad ? "icon icon--disactive" : "icon"}>
+                <span className="item__file-name">{getFileName()}</span>
                 <FontAwesomeIcon icon={faFileArrowDown} />
               </div>
-              <span className="tooltip-text">download</span>
+              <span className="tooltip-text tooltip-text__fileName">
+                {props.todo?.data?.file?.fileName}
+              </span>
             </div>
           </div>
         </div>

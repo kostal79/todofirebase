@@ -6,7 +6,6 @@ import InputDescription from "../input-desctription/InputDescription";
 import InputDate from "../input-date/InputDate";
 import InputFile from "../input-file/InputFile";
 
-
 /**
  * Component FormMain
  * @param {*} props 
@@ -57,6 +56,7 @@ const FormMain = (props) => {
           labelClassName={
             props.isFilePicked ? "download--disactive" : "download"
           }
+          isLoading={props.isLoading}
         />
       </div>
 

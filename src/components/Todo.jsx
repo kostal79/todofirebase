@@ -22,6 +22,7 @@ import {
   getDownloadURL,
   deleteObject,
 } from "firebase/storage";
+import renameFile from "../utils/Rename";
 
 /** Component of Todo module 
  * @description consist general logic of project.
@@ -36,6 +37,7 @@ const Todo = () => {
   const [selectedFile, setSelectedFile] = useState("");
   const [isFilePicked, setIsFilePicked] = useState(false);
   const [updatedFileName, setUpdatedFileName] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
 
   /**
    * Sets default values in sets (except todos)
@@ -141,16 +143,19 @@ const Todo = () => {
    */
   const submitTodo = async (e) => {
     e.preventDefault();
+
     if (title && todoDate) {
       if (isFilePicked) {
-        const fileName = Date.now() + selectedFile.name;
+        setIsLoading(true)
+        const fileName = renameFile(selectedFile.name);
         const storageRef = ref(storage, fileName);
 
-        uploadBytes(storageRef, selectedFile).then((snapshot) => {
+        await uploadBytes(storageRef, selectedFile).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((fileURL) =>
             addData(title, description, todoDate, false, fileURL, fileName)
           );
         });
+        setIsLoading(false)
       } else {
         addData(title, description, todoDate, false, null, null);
       }
@@ -188,10 +193,11 @@ const Todo = () => {
         update.data.file.fileName &&
         update.data.file.fileName !== updatedFileName
       ) {
-        const fileName = Date.now() + selectedFile.name;
+        setIsLoading(true)
+        const fileName = renameFile(selectedFile.name);
         const storageRef = ref(storage, fileName);
 
-        uploadBytes(storageRef, selectedFile).then((snapshot) => {
+        await uploadBytes(storageRef, selectedFile).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((fileURL) =>
             updateData(documentId, {
               ...newData,
@@ -199,15 +205,16 @@ const Todo = () => {
             })
           );
         });
-
+        setIsLoading(false)
         deleteFile(update.data.file.fileURL);
 
         //if was no file but now is attached
       } else {
-        const fileName = Date.now() + selectedFile.name;
+        setIsLoading(true)
+        const fileName = renameFile(selectedFile.name);
         const storageRef = ref(storage, fileName);
 
-        uploadBytes(storageRef, selectedFile).then((snapshot) => {
+        await uploadBytes(storageRef, selectedFile).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((fileURL) =>
             updateData(documentId, {
               ...newData,
@@ -215,6 +222,7 @@ const Todo = () => {
             })
           );
         });
+        setIsLoading(false)
       }
     } else {
       alert("Title and date is mandatory");
@@ -391,6 +399,7 @@ const Todo = () => {
             clearSelectedFile={clearSelectedFile}
             updatedFileName={updatedFileName}
             cancelUpdate={cancelUpdate}
+            isLoading={isLoading}
           />
         </div>
         <div className="form form__change-data-form"></div>

@@ -1,4 +1,4 @@
-.input__date {
+.input__date, .update__date{
     padding: 10px 3px;
     width: 50%;
     background-color: rgb(231, 230, 230);

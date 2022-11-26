@@ -1,12 +1,13 @@
 /**@module InputFile */
 import React from "react";
-import './InputFile.css'
+import "./InputFile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
+import Spinner from "../Spinner/Spinner";
 
 /**
  * Component InputFile
- * @param {*} props 
+ * @param {*} props
  * @description block for input file field
  */
 const InputFile = (props) => {
@@ -19,22 +20,23 @@ const InputFile = (props) => {
         style={{ display: "none" }}
         onChange={props.inputOnChange}
       />
-      <div
-        className={props.downloadFileInfoClassName}
-      >
+      <div className={props.downloadFileInfoClassName}>
+        <Spinner
+          className={props.isLoading ? "spinner" : "spinner spinner--disactive"}
+        />
         <FontAwesomeIcon icon={faPaperclip} />
         <div className="fileSelector">{props.selectedFileName}</div>
-        <div className={props.cancelIconClassName} onClick={props.cancelIconOnClick}>
+        <div
+          className={props.cancelIconClassName}
+          onClick={props.cancelIconOnClick}
+        >
           <FontAwesomeIcon
             icon={faXmark}
             style={{ color: "red", fontSize: "22px", fontWeight: "600" }}
           />
         </div>
       </div>
-      <label
-        htmlFor={props.name}
-        className={props.labelClassName}
-      >
+      <label htmlFor={props.name} className={props.labelClassName}>
         Attach file
       </label>
     </>
