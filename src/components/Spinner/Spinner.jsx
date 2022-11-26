@@ -6,7 +6,7 @@ import './Spinner.css'
 /**
  * Spinner component
  * @param {*} props - ClassName
- * @description spin when file is uploading of downloading
+ * @description spin when file is uploading or downloading
  */
 const Spinner = (props) => {
     return (

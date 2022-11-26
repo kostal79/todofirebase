@@ -7,7 +7,7 @@ import Spinner from "../Spinner/Spinner";
 
 /**
  * Component InputFile
- * @param {*} props
+ * @param {*} props comes from formUpdate and formMain
  * @description block for input file field
  */
 const InputFile = (props) => {

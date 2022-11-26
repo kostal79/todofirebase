@@ -6,7 +6,7 @@ import FormMain from "../form-main/FormMain";
 
 /**
  * Component Form
- * @param {*} props 
+ * @param {*} props comes from Todo
  * @description common block for adding and updating forms
  */
 const Forms = (props) => {

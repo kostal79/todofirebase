@@ -4,7 +4,7 @@ import './InputTitle.css'
 
 /**
  * Component InputTitle
- * @param {*} props 
+ * @param {*} props comes from formUpdate and formMain
  * @description render field for title 
  */
 const InputTitle = (props) => {

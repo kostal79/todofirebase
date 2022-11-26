@@ -8,7 +8,7 @@ import InputFile from "../input-file/InputFile";
 
 /**
  * Component FormMain
- * @param {*} props 
+ * @param {*} props - comes from Todo
  * @description make upper block for adding todo 
  */
 const FormMain = (props) => {

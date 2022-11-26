@@ -14,7 +14,7 @@ import {
 import db, { storage } from "../firebase";
 import Forms from "./forms/Forms";
 import DateForm from "../utils/DateForm";
-import TodoContent from "./forms/todo-content/TodoContent";
+import TodoContent from "./todo-content/TodoContent";
 import TodoItem from "./todo-item/TodoItem";
 import {
   ref,
@@ -77,7 +77,7 @@ const Todo = () => {
   /**
    * Gets document by ID from firestore
    * @param {string} documentID
-   * @returns {Promise} data
+   * @description Get document from firestore by ID
    */
   const getDocument = async (documentID) => {
     const docRef = doc(db, "todos", documentID);
@@ -127,8 +127,8 @@ const Todo = () => {
 
   /**
    * Update todo in firestore
-   * @param {string} documentId 
-   * @param {object} newData 
+   * @param {string} documentId id document which need to be updated.
+   * @param {object} newData  object. Consistance: title, description, isDone, file: file name and file URL.
    */
   const updateData = async (documentId, newData) => {
     setDoc(doc(db, "todos", documentId), newData)
@@ -139,7 +139,7 @@ const Todo = () => {
 
   /**
    * Sumbit additing new todo, adds document and attaches file
-   * @param {event} e - press button Submit
+   * @param {event} e - event press button Submit
    */
   const submitTodo = async (e) => {
     e.preventDefault();
@@ -167,7 +167,7 @@ const Todo = () => {
   /**
    * Submits update task. Rerendering all list, because list must be sorted,
    * when date will be updated.
-   * @param {event} e - press button "Submit"
+   * @param {event} e - event press button "Submit"
    */
   const submitUpdate = async (e) => {
     e.preventDefault();
@@ -231,7 +231,7 @@ const Todo = () => {
   };
 
   /**
-   * update title in document
+   * updates title in state update
    * @param {event} e - title field
    */
   const handleUpdateTitle = (e) => {
@@ -239,7 +239,7 @@ const Todo = () => {
   };
 
   /**
-   * handler for update description 
+   * Update description in update satate 
    * @param {event} e - description field
    */
   const handleUpdateDescription = (e) => {
@@ -250,7 +250,7 @@ const Todo = () => {
   };
 
   /**
-   * handler for date updating 
+   * Update date in update state 
    * @param {event} e input field date
    */
   const handleUpdateDate = (e) => {
@@ -296,7 +296,7 @@ const Todo = () => {
   /**
    * Puts file's object to state and
    * marks that file was selected
-   * @param {event} e - press "upload file"
+   * @param {event} e - event input field type file
    */
   const loadFileHandler = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -317,7 +317,7 @@ const Todo = () => {
   /**
    * Make list of all todo
    * @param {array} todos - array of objects
-   * @returns array of todoItem components
+   * @returns array of todoItem components for rendering
    */
   const todoList = useMemo(
     () => {

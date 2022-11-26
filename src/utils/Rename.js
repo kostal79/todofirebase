@@ -1,7 +1,7 @@
 /**
  * Renames file
  * @param {string} name of file
- * @returns {string} new name
+ * @returns {string} new name, where after name was puted timestamp
  */
 const renameFile = (name) => {
     // eslint-disable-next-line

@@ -9,7 +9,7 @@ import "./FormUpdate.css";
 
 /**
  * Component FormUpdate
- * @param {*} props
+ * @param {*} props comes from Forms
  * @description makes form for updating todo
  */
 const FormUpdate = (props) => {

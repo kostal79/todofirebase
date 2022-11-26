@@ -5,8 +5,8 @@ import './InputDate.css'
 
 /**
  * Component for input field for date
- * @param {*} props 
- * @returns 
+ * @param {*} props comes from FormUpdate and FormMain
+ * @describtion renders field for input date
  */
 const InputDate = (props) => {
     return (
