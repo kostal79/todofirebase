@@ -5,9 +5,9 @@ import FormUpdate from "../form-update/FormUpdate";
 import FormMain from "../form-main/FormMain";
 
 /**
- * Component Form
- * @param {*} props comes from Todo
- * @description common block for adding and updating forms
+ * @component
+ * @description Common block for adding and updating forms
+ * render block, holding two form: form for adding and form for updating
  */
 const Forms = (props) => {
   return (

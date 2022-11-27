@@ -2,8 +2,8 @@
 import React from "react";
 
 /**
- * Component of TodoContent
- * @param {*} props comes from Todo
+ * @component
+ * @param {array} todoList list of todos
  * @description render list of all todos
  */
 const TodoContent = (props) => {

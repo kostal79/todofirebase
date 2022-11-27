@@ -1,6 +1,7 @@
 {
     "plugins": [
-        "plugins/markdown"
+        "plugins/markdown",
+        "better-docs/component"
     ],
     "recurseDepth": 10,
     "source": {
@@ -18,5 +19,9 @@
         "destination": "./jsdoc",
         "recurse": true,
         "readme": "./README.md"
-    }
+    },
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+      }
 }

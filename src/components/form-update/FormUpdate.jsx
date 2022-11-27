@@ -9,8 +9,20 @@ import "./FormUpdate.css";
 
 /**
  * Component FormUpdate
- * @param {*} props comes from Forms
- * @description makes form for updating todo
+ * @component
+ * @param {funct} submitUpdate submit form function
+ * @param {object} update use for changing class name
+ * @param {funct} handleUpdateTitle handler for updating title
+ * @param {string} currentDate current date
+ * @param {funct} handleUpdateDate update date handler
+ * @param {funct} handleUpdateDescription update desctiption handler
+ * @param {funct} loadFileHandler load file handler
+ * @param {string} updatedFileName name of new upload file
+ * @param {funct} clearSelectedFile function clear name
+ * @param {boolean} isLoading true when file is loading
+ * @param {funct} cancelUpdate function canceled updating
+ * 
+ * @description Makes form for updating todo
  */
 const FormUpdate = (props) => {
   return (

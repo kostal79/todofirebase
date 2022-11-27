@@ -7,9 +7,23 @@ import InputDate from "../input-date/InputDate";
 import InputFile from "../input-file/InputFile";
 
 /**
- * Component FormMain
- * @param {*} props - comes from Todo
- * @description make upper block for adding todo 
+ * Component FormMain for showing main page.
+ * @component
+ * @param {funct} submitTodo function for submiting form
+ * @param {object} update use for changing class name, it depends of if update empty or not
+ * @param {funct} handleTitle 
+ * @param {string} title todo title
+ * @param {string} currentDate current date
+ * @param {funct} handleDate
+ * @param {string} todoDate date when todo must be done
+ * @param {funct} handleDescription
+ * @param {string} desctription todo description
+ * @param {funct} loadFileHandler
+ * @param {boolean} isFilePicked true if file is picked
+ * @param {object} selectedFile file object
+ * @param {boolean} isLoading true when file is loading
+ *  
+ * @description Make upper block for adding todo 
  */
 const FormMain = (props) => {
   return (

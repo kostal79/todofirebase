@@ -17,8 +17,9 @@ import Spinner from "../Spinner/Spinner";
 
 
 /**
- * Component todo item
- * @param {*} props comes from Todo
+ * @component
+ * @param {{id: string, data: {title: string, description: string, date: string, isDone: boolean, file: {fileName: string, fileURL: string}}}} todo object with todo info
+ * 
  * @description render todo item
  */
 const TodoItem = (props) => {
@@ -31,7 +32,7 @@ const TodoItem = (props) => {
    */
   useEffect(() => setTodo(props.todo), [props]);
 
-  /** fills updating fields
+  /** Fills updating fields and scroll up
    * @param {event} e event press icon "change"
    */
   const changeTodo = (e) => {

@@ -24,11 +24,14 @@ import {
 } from "firebase/storage";
 import renameFile from "../utils/Rename";
 
-/** Component of Todo module 
+/** 
+ * Component of Todo module 
+ * Consist all main logic and render main page
  * 
- * @description consist general logic of project.
+ * @component
 */
 const Todo = () => {
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [todos, setTodos] = useState([]);
@@ -40,7 +43,7 @@ const Todo = () => {
   const [updatedFileName, setUpdatedFileName] = useState("");
   const [isLoading, setIsLoading] = useState(false)
 
-/**
+ /**
  * Sets default values in sets (except todos)
  */
   const setDefaultValues = () => {
@@ -77,7 +80,7 @@ const Todo = () => {
 
   /**
    * Gets document by ID from firestore
-   * @param {string} documentID
+   * @param {string} documentID id docunent in firebase
    * @description Get document from firestore by ID
    */
   const getDocument = async (documentID) => {

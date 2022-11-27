@@ -3,7 +3,13 @@
 import React from "react";
 import './InputDescription.css'
 
-/**Component InputDescription
+/**
+ * @component
+ * @param {string} name name of textarea field
+ * @param {string} placeholder placeholder text
+ * @param {funct} onChange function work when value was changed
+ * @param {string} value value of textarea
+ * @param {string} className name of class
  * @description render field for input Title
  */
 const InputDescription = (props) => {

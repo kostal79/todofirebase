@@ -3,8 +3,12 @@ import React from 'react'
 import './InputTitle.css'
 
 /**
- * Component InputTitle
- * @param {*} props comes from formUpdate and formMain
+ * @component
+ * @param {string} placeholder placeholder text
+ * @param {funct} onChange on-change function
+ * @param {string} value value of field
+ * @param {string} className name of class
+ * @param {name} name name of inpunt tag
  * @description render field for title 
  */
 const InputTitle = (props) => {

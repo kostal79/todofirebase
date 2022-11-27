@@ -6,8 +6,18 @@ import { faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Spinner from "../Spinner/Spinner";
 
 /**
- * Component InputFile
- * @param {*} props comes from formUpdate and formMain
+ * @component
+ * @param {string} inputId id of input field
+ * @param {name} name name of field
+ * @param {funct} inputOnChange function starts when input was changed
+ * @param {string} downloadFileInfoClassName name of div block
+ * @param {boolean} isLoading if is file loading: true
+ * @param {string} selectedFileName name of new selected file
+ * @param {string} cancelIconClassName name of icon: defines if icon is visible
+ * @param {funct} cancelIconOnClick cancel changings
+ * @param {string} abelClassName me of label: defines if icon is visible
+ * 
+ * 
  * @description block for input file field
  */
 const InputFile = (props) => {
