@@ -11,7 +11,7 @@ Save yout firebase settings and export default "db".
 
 ## Documentation
 
-Open index.html in jsdoc
+Open start.html in jsdoc
 
 ## How it looks
 
