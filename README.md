@@ -1,6 +1,6 @@
 # Lite ToDo project on firebase
 
-## For testing create file firebase if src directory.
+## For using modify file firebase in src directory.
 Make new project in firebase and create firestore and storage.
 Save yout firebase settings in src/firebase.js .
 
