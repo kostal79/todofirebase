@@ -18,10 +18,10 @@ Open index.html in jsdoc
 <table>
   <tr>
     <td>
-      <a href='../readme/first.png'><img src="../readme/first.png" style="width: 550px"/></a>
+      <a href='./readme/first.png'><img src="../readme/first.png" style="width: 550px"/></a>
     </td>
     <td>
-      <a href='../readme/second.png'><img src="../readme/second.png" style="width: 550px"/></a>
+      <a href='./readme/second.png'><img src="../readme/second.png" style="width: 550px"/></a>
     </td>
   </tr>
 </table>
