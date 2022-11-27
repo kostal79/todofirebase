@@ -7,7 +7,7 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
 
-
+// ADD YOUR SETTINGS
 };
 
 //Initialize Firebase / 
