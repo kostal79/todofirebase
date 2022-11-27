@@ -2,7 +2,7 @@
 
 ## For testing create file firebase if src directory.
 Make new project in firebase and create firestore and storage.
-Save yout firebase settings and export default "db".
+Save yout firebase settings in src/firebase.js .
 
 ## Functionality:
 
